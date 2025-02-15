@@ -1,0 +1,51 @@
+{% extends 'layout.html' %} 
+{% block title %} Update Product {% endblock %}
+
+{% block content %}
+<h2>Update Product</h2>
+<form method="post" enctype="multipart/form-data">
+  <label>Name:</label>
+  <input type="text" name="name" value="{{ product.name }}" required>
+  
+  <label>Price:</label>
+  <input type="number" step="0.01" name="price" value="{{ product.price }}" required>
+  
+  <label>Description:</label>
+  <textarea name="description" required>{{ product.description }}</textarea>
+  
+  <label>Image:</label>
+  <input type="file" name="image" accept="image/*" />
+  {% if product.image %}
+    <p>Current Image: <img src="{{ product.image }}" alt="{{ product.name }}" width="100"></p>
+  {% endif %}
+
+  <label>Category:</label>
+  <select name="category" required>
+    <option value="mammals" {% if product.category == 'mammals' %}selected{% endif %}>Mammals</option>
+    <option value="birds" {% if product.category == 'birds' %}selected{% endif %}>Birds</option>
+    <option value="reptiles" {% if product.category == 'reptiles' %}selected{% endif %}>Reptiles</option>
+    <option value="fish" {% if product.category == 'fish' %}selected{% endif %}>Fish</option>
+    <option value="crustaceans" {% if product.category == 'crustaceans' %}selected{% endif %}>Crustaceans</option>
+    <option value="food_crops" {% if product.category == 'food_crops' %}selected{% endif %}>Food Crops</option>
+    <option value="cash_crops" {% if product.category == 'cash_crops' %}selected{% endif %}>Cash Crops</option>
+  </select>
+
+  <!-- Gender and Color Fields (Only for mammals, birds, reptiles) -->
+  {% if product.category in ['mammals', 'birds', 'reptiles'] %}
+    <label>Gender:</label>
+    <select name="gender">
+      <option value="Male" {% if product.gender == 'Male' %}selected{% endif %}>Male</option>
+      <option value="Female" {% if product.gender == 'Female' %}selected{% endif %}>Female</option>
+    </select>
+
+    <label>Color:</label>
+    <select name="color">
+      <option value="Black" {% if product.color == 'Black' %}selected{% endif %}>Black</option>
+      <option value="White" {% if product.color == 'White' %}selected{% endif %}>White</option>
+      <option value="Brown" {% if product.color == 'Brown' %}selected{% endif %}>Brown</option>
+    </select>
+  {% endif %}
+
+  <button type="submit" class="btn btn-success">Update Product</button>
+</form>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'layout.html' %} {% block title %}Products - Terra Balance
+Enterprises{% endblock %} {% block content %}
+<div class="small-container">
+  <h1 class="title">{{ category }} Products Page</h1>
+  <div class="row">
+    {% for product in products %}
+    <div class="col-4 product-card">
+      <img
+        src="{{ product.image }}"
+        alt="{{ product.name }}"
+        class="product-image"
+      />
+      <h4 class="product-name">{{ product.name }}</h4>
+      <p class="product-description">{{ product.description }}</p>
+      <p class="product-price">Price: #{{ product.price }}</p>
+
+      {% if product.category in ['Mammals', 'Birds', 'Reptiles', 'Crustaceans']
+      %}
+      <div class="product-options">
+        <p>
+          <strong>Gender:</strong> {{ product.gender_options | join(', ') }}
+        </p>
+        <p><strong>Color:</strong> {{ product.color_options | join(', ') }}</p>
+      </div>
+      {% endif %}
+
+      <form
+        action="{{ url_for('products.cart') }}"
+        method="POST"
+        class="product-form"
+      >
+        <input type="hidden" name="name" value="{{ product.name }}" />
+        <input type="hidden" name="price" value="{{ product.price }}" />
+
+        {% if product.category in ['Mammals', 'Birds', 'Reptiles',
+        'Crustaceans'] %}
+        <div class="form-group">
+          <label for="gender{{ loop.index }}">Gender:</label>
+          <select id="gender{{ loop.index }}" name="gender" class="form-select">
+            {% for gender in product.gender_options %}
+            <option value="{{ gender }}">{{ gender }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="color{{ loop.index }}">Color:</label>
+          <select id="color{{ loop.index }}" name="color" class="form-select">
+            {% for color in product.color_options %}
+            <option value="{{ color }}">{{ color }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endif %}
+
+        <button type="submit" class="btn">Add to Cart →</button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

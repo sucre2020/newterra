@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Terra Balance Enterprises{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    <!-- Add Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <!-- Left side: Navigation with dropdowns -->
+        <nav class="main-nav">
+          <ul class="nav-links">
+            <li class="dropdown">
+              <a href="#">Crops</a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    href="{{ url_for('products.show_products', category='Food Crops') }}"
+                    >Food Crops</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{{ url_for('products.show_products', category='Cash Crops') }}"
+                    >Cash Crops</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#">Animals</a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    href="{{ url_for('products.show_products', category='Mammals') }}"
+                    >Mammals</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{{ url_for('products.show_products', category='Birds') }}"
+                    >Birds</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{{ url_for('products.show_products', category='Reptiles') }}"
+                    >Reptiles</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{{ url_for('products.show_products', category='Fish') }}"
+                    >Fish</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="{{ url_for('products.show_products', category='Crustaceans') }}"
+                    >Crustaceans</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#">Brand</a>
+              <ul class="dropdown-menu">
+                <li><a href="/stories_projects">Our Story</a></li>
+                <li><a href="/services">Our Services</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="javascript:history.back()" class="btn">Go Back</a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Center: Logo -->
+        <div class="logo">
+          <a href="{{ url_for('home.home') }}">
+            <img
+              src="{{ url_for('static', filename='images/TerrabalanceLogo-removebg-preview.png') }}"
+              alt="Terrabalance_logo"
+            />
+          </a>
+        </div>
+
+        <!-- Right side: Utility icons -->
+        <div class="utility-icons">
+          <form
+            action="{{ url_for('search.search') }}"
+            method="get"
+            class="search-form"
+          >
+            <input
+              type="text"
+              name="query"
+              placeholder="Search for products ..."
+            />
+            <button type="submit">Search</button>
+          </form>
+
+          <!-- <a href="/search" class="search-icon"
+            ><i class="fas fa-search"></i
+          ></a> -->
+          {% if session.get('user_id') %}
+          <li>Hi, {{session['username'].title()}}</li>
+          <a href="{{ url_for('auth.logout') }}" class="account-icon">
+            <i class="fas fa-user"></i> Logout
+          </a>
+          {% else %}
+          <a href="{{ url_for('auth.login') }}" class="account-icon">
+            <i class="fas fa-user"></i> Login
+          </a>
+          {% endif %}
+          <a href="{{ url_for('products.cart') }}" class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            {% if cart_item_count > 0 %}
+            <span class="cart-count">{{ cart_item_count }}</span>
+            {% endif %}
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      {% with messages = get_flashed_messages(with_categories=True) %} {% if
+      messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+        <p class="flash-message {{ category }}">{{ message }}</p>
+        {% endfor %}
+      </div>
+      {% endif %} {% endwith %} {% block content %} {% endblock %}
+    </main>
+
+    <footer>
+      <!-- Testimonials Section -->
+      <div class="testimonial">
+        <div class="small-container">
+          <h2 class="title">What Our Customers Say</h2>
+          <div class="row">
+            <div class="col-3">
+              <i class="fa fa-quote-left"></i>
+              <p>
+                Terra Balance Enterprises has transformed my farming business.
+                Their products are top-notch and their service is exceptional!
+              </p>
+              <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+              </div>
+              <img src="/static/images/q.webp" alt="Customer 1" />
+              <h3>John Doe</h3>
+            </div>
+            <div class="col-3">
+              <i class="fa fa-quote-left"></i>
+              <p>
+                I love the variety of products they offer. From crops to
+                animals, everything is of the highest quality.
+              </p>
+              <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+              </div>
+              <img src="/static/images/r.webp" alt="Customer 2" />
+              <h3>Jane Smith</h3>
+            </div>
+            <div class="col-3">
+              <i class="fa fa-quote-left"></i>
+              <p>
+                The customer support team is amazing. They helped me choose the
+                right products for my farm.
+              </p>
+              <div class="rating">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star-o"></i>
+              </div>
+              <img src="/static/images/s.webp" alt="Customer 3" />
+              <h3>Mike Johnson</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brands Section -->
+      <div class="brands">
+        <div class="small-container">
+          <h2 class="title">Our Partners</h2>
+          <div class="row">
+            <div class="col-5">
+              <img src="/static/images/Coca-Cola-Logo.png" alt="Coca-Cola" />
+            </div>
+            <div class="col-5">
+              <img src="/static/images/images (4).jpeg" alt="Brand 2" />
+            </div>
+            <div class="col-5">
+              <img src="/static/images/Coca-Cola-Logo.png" alt="Coca-Cola" />
+            </div>
+            <div class="col-5">
+              <img src="/static/images/images (4).jpeg" alt="Brand 4" />
+            </div>
+            <div class="col-5">
+              <img src="/static/images/Coca-Cola-Logo.png" alt="Coca-Cola" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Section -->
+      <div class="footer">
+        <div class="container">
+          <div class="row">
+            <!-- <div class="footer-col-1">
+              <h3>Download our App</h3>
+              <p>Download App for Android and iOS mobile phone</p>
+              <div class="app-logo">
+                <img src="/static/images/appstore.webp" alt="App Store" />
+                <img src="/static/images/applestore.webp" alt="Apple Store" />
+              </div>
+            </div> -->
+            <div class="footer-col-2">
+              <img
+                src="/static/images/TerrabalanceLogo-removebg-preview.png"
+                alt="Terra Balance Enterprises"
+              />
+              <p>
+                Our purpose is to sustainably make the pleasure and benefits of
+                farming accessible to the many.
+              </p>
+            </div>
+            <div class="footer-col-3">
+              <h3>Useful Links</h3>
+              <ul>
+                <li>Coupons</li>
+                <li>Blog Post</li>
+                <li>Return Policy</li>
+                <li>Join Affiliate</li>
+              </ul>
+            </div>
+            <div class="footer-col-4">
+              <h3>Follow Us</h3>
+              <ul>
+                <li>Facebook</li>
+                <li>Twitter</li>
+                <li>Instagram</li>
+                <li>YouTube</li>
+              </ul>
+            </div>
+          </div>
+          <hr />
+          <p class="copyright">Copyright 2025 - Efita Effiom</p>
+        </div>
+      </div>
+
+      <script>
+        var MenuItems = document.getElementById("MenuItems");
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+          if (MenuItems.style.maxHeight == "0px") {
+            MenuItems.style.maxHeight = "700px";
+          } else {
+            MenuItems.style.maxHeight = "0px";
+          }
+        }
+      </script>
+    </footer>
+  </body>
+</html>

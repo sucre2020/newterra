@@ -1,0 +1,194 @@
+{% extends 'layout.html' %} {% block title %}Home - Terra Balance Enterprises{%
+endblock %} {% block content %}
+<div class="row">
+  <!-- <div class="col-2"> -->
+  <div class="homefirstg">
+    <div class="item">
+      <h1>
+        Welcome <br />
+        To The New Farm<br />Shopping Experience
+      </h1>
+    </div>
+    <div class="item">
+      <img src="/static/images/cocoa.jpg" alt="Farm Shopping Experience" />
+    </div>
+    <div class="item">
+      <a href="{{ url_for('products.show_products') }}" class="btn"
+        >Explore More &#8594;</a
+      >
+    </div>
+  </div>
+
+  <!-- Featured Products Section -->
+  <div class="small-container">
+    <h2 class="title">Featured Products</h2>
+    <div class="row">
+      {% for product in featured_products %}
+      <div class="col-4">
+        <img
+          src="{{ product.image }}"
+          alt="{{ product.name }}"
+          class="product-image"
+        />
+        <h4 class="product-name">{{ product.name }}</h4>
+        <p class="product-description">{{ product.description }}</p>
+        <div class="rating">
+          {% for _ in range(product.rating) %}
+          <i class="fa fa-star"></i>
+          {% endfor %} {% if product.rating % 1 != 0 %}
+          <i class="fa fa-star-half-o"></i>
+          {% endif %} {% for _ in range(5 - product.rating | round(0, 'ceil') |
+          int) %}
+          <i class="fa fa-star-o"></i>
+          {% endfor %}
+        </div>
+        <p class="product-price">#{{ product.price }}</p>
+
+        <!-- {% if product.category in ['Mammals', 'Birds', 'Reptiles',
+        'Crustaceans'] %}
+        <p>
+          <strong>Gender Options:</strong> {{ product.gender_options | join(',
+          ') }}
+        </p>
+        <p>
+          <strong>Color Options:</strong> {{ product.color_options | join(', ')
+          }}
+        </p>
+        {% endif %} -->
+
+        <form action="{{ url_for('products.cart') }}" method="POST">
+          <input type="hidden" name="name" value="{{ product.name }}" />
+          <input type="hidden" name="price" value="{{ product.price }}" />
+
+          {% if product.category in ['Mammals', 'Birds', 'Reptiles',
+          'Crustaceans'] %}
+          <div class="form-group">
+            <label for="gender{{ loop.index }}">Gender:</label>
+            <select
+              id="gender{{ loop.index }}"
+              name="gender"
+              class="form-select"
+            >
+              {% for gender in product.gender_options %}
+              <option value="{{ gender }}">{{ gender }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="color{{ loop.index }}">Color:</label>
+            <select id="color{{ loop.index }}" name="color" class="form-select">
+              {% for color in product.color_options %}
+              <option value="{{ color }}">{{ color }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% endif %}
+
+          <button type="submit" class="btn">Add to Cart &#8594;</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Latest Products Section -->
+  <div class="small-container">
+    <h2 class="title">Latest Products</h2>
+    <div class="row">
+      {% for product in latest_products %}
+      <div class="col-4">
+        <img
+          src="{{ product.image }}"
+          alt="{{ product.name }}"
+          class="product-image"
+        />
+        <h4 class="product-name">{{ product.name }}</h4>
+        <p class="product-description">{{ product.description }}</p>
+        <div class="rating">
+          {% for _ in range(product.rating) %}
+          <i class="fa fa-star"></i>
+          {% endfor %} {% if product.rating % 1 != 0 %}
+          <i class="fa fa-star-half-o"></i>
+          {% endif %} {% for _ in range(5 - product.rating | round(0, 'ceil') |
+          int) %}
+          <i class="fa fa-star-o"></i>
+          {% endfor %}
+        </div>
+        <p class="product-price">#{{ product.price }}</p>
+
+        <!-- {% if product.category in ['Mammals', 'Birds', 'Reptiles',
+        'Crustaceans'] %}
+        <p>
+          <strong>Gender Options:</strong> {{ product.gender_options | join(',
+          ') }}
+        </p>
+        <p>
+          <strong>Color Options:</strong> {{ product.color_options | join(', ')
+          }}
+        </p>
+        {% endif %} -->
+
+        <form action="{{ url_for('products.cart') }}" method="POST">
+          <input type="hidden" name="name" value="{{ product.name }}" />
+          <input type="hidden" name="price" value="{{ product.price }}" />
+
+          {% if product.category in ['Mammals', 'Birds', 'Reptiles',
+          'Crustaceans'] %}
+          <div class="form-group">
+            <label for="gender{{ loop.index }}">Gender:</label>
+            <select
+              id="gender{{ loop.index }}"
+              name="gender"
+              class="form-select"
+            >
+              {% for gender in product.gender_options %}
+              <option value="{{ gender }}">{{ gender }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="color{{ loop.index }}">Color:</label>
+            <select id="color{{ loop.index }}" name="color" class="form-select">
+              {% for color in product.color_options %}
+              <option value="{{ color }}">{{ color }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% endif %}
+
+          <button type="submit" class="btn">Add to Cart &#8594;</button>
+        </form>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Offer Section -->
+  <div class="offer">
+    <div class="small-container">
+      <div class="row">
+        <div class="col-2">
+          <h2 class="title">Special Offfer</h2>
+          <img
+            src="/static/images/t.webp"
+            class="offer-img"
+            alt="Special Offer"
+          />
+        </div>
+        <div class="col-2">
+          <p>Exclusively Available on Terra Balance</p>
+          <h1>Smart Farm Kit</h1>
+          <p class="product-description">
+            The Smart Farm Kit features advanced tools and resources to
+            modernize your farming experience.
+          </p>
+          <a href="{{ url_for('products.show_products') }}" class="btn"
+            >Buy Now &#8594;</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}
+</div>

@@ -1,0 +1,27 @@
+{% extends "layout.html" %} {% block title %} Search {% endblock %} {% block
+content %}
+<div class="logincontainer">
+  <h1 class="title">Search Results</h1>
+
+  {% if results %}
+  <ul>
+    {% for item in results %}
+    <li class="product-name">Name: {{ item.name }}</li>
+    <li class="product-image">
+      <img src="{{ item.image }}" alt="{{ item.name }}" class="product-image" />
+    </li>
+    <li class="product-price">Price: #{{item.price}}</li>
+    <li class="product-description">{{item.description}}</li>
+    <li>
+      <a
+        href="{{ url_for('products.add_to_cart', product_id=item._id) }}"
+        class="btn"
+        >Add to Cart</a
+      >
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No results found.</p>
+</div>
+{% endif %} {% endblock %}

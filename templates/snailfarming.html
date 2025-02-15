@@ -1,0 +1,52 @@
+{% extends 'layout.html' %} {% block title %} Snail Farming - Terra Balance
+Enterprises {% endblock %} {% block content %}
+
+<h1 class="title">Register For Snail Farming Training</h1>
+
+<form
+  action="{{ url_for('snailfarming.snailfarming') }}"
+  method="post"
+  class="contact-form"
+>
+  <label for="trainingtype">Training Type</label>
+  <input
+    type="text"
+    id="trainingtype"
+    name="trainingtype"
+    value="Snail Farming"
+    readonly
+  />
+
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" placeholder="Your Name" required />
+
+  <label for="email">Email:</label>
+  <input
+    type="email"
+    id="email"
+    name="email"
+    placeholder="Your Email"
+    required
+  />
+
+  <label for="phonenumber">Phone Number</label>
+  <input
+    type="tel"
+    id="phonenumber"
+    name="phonenumber"
+    placeholder="Phone Number"
+    required
+  />
+
+  <label for="message">Any Other Information:</label>
+  <textarea
+    id="message"
+    name="message"
+    placeholder="Your Message"
+    required
+  ></textarea>
+
+  <button type="submit">Submit</button>
+</form>
+
+{% endblock %}
