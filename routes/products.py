@@ -37,7 +37,7 @@ def cart():
     if product:
         item = {
             "name": product['name'],
-            "price": product['price'],
+            "price": float(product['price']),
             "gender": request.form.get("gender"),
             "color": request.form.get("color"),
             "quantity": 1

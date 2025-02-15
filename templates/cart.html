@@ -13,7 +13,9 @@ content %}
         <p><strong>Color:</strong> {{ item.color }}</p>
         <p><strong>Price:</strong> #{{ item.price }}</p>
         <p><strong>Quantity:</strong> {{ item.quantity }}</p>
-        <p><strong>Total:</strong> #{{ item.price * item.quantity }}</p>
+        <p>
+          <strong>Total:</strong> #{{ (item.price | float) * item.quantity }}
+        </p>
       </div>
       <div class="item-actions">
         <form
@@ -41,7 +43,7 @@ content %}
   </div>
 
   <div class="cart-summary">
-    <p><strong>Total Price:</strong> #{{ total_price }}</p>
+    <p><strong>Total Price:</strong> #{{ "%.2f"|format(total_price) }}</p>
     <form action="{{ url_for('products.checkout') }}" method="post">
       <button type="submit" class="checkout-btn">Checkout</button>
     </form>
