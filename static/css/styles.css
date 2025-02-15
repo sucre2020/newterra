@@ -968,6 +968,11 @@ contact page
     display: block; /* Show hamburger icon on small screens */
   }
 
+  h1 {
+    margin-top: 100px !important;
+}
+
+
   .main-nav {
     display: none; /* Hide navigation by default on small screens */
     width: 100%;
@@ -1030,10 +1035,12 @@ contact page
   .service-card {
     flex: 1 1 100%;
   }
+
 }
 
 @media (max-width: 480px) {
   /* Further Adjustments for Smaller Screens */
+
   .homefirstg {
     grid-template-columns: 1fr;
   }
@@ -1066,5 +1073,81 @@ contact page
   .cart-count {
     top: -8px;
     left: -3px;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Ensure the container has enough space */
+  .cart-container {
+      padding: 10px;
+      margin-top: 10px;
+      overflow: visible; /* Prevent clipping */
+  }
+
+  /* Flash message visibility fix */
+  .flash-message {
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px; /* Adjust font size for smaller screens */
+      word-wrap: break-word; /* Prevents text overflow */
+      text-align: center;
+      margin-bottom: 15px; /* Ensure spacing */
+  }
+
+  /* Ensure headings are properly displayed */
+  h1 {
+      font-size: 22px; /* Responsive font */
+      text-align: center;
+      margin-top: 20px; /* Prevents clipping */
+  }
+
+  h3 {
+      font-size: 18px;
+      margin-top: 5px;
+      overflow-wrap: break-word; /* Prevents text from being cut off */
+  }
+
+  /* Fix paragraph spacing */
+  p {
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+  }
+
+  /* Fix cart items layout */
+  .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .cart-item {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 100%;
+  }
+
+  .item-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+  }
+
+  .update-btn, .remove-btn {
+      font-size: 14px;
+      padding: 8px;
+  }
+
+  .cart-summary {
+      text-align: center;
+      padding: 10px;
+  }
+
+  .checkout-btn {
+      width: 100%;
+      font-size: 16px;
   }
 }
