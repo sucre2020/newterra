@@ -34,8 +34,10 @@ def login():
     if user and 'password_hash' in user and check_password_hash(user['password_hash'], password):
         session['user_id'] = str(user['_id'])  # Store user ID in session
         session['username'] = user['username']  # Store username in session
+        session["is_admin"] = user.get("is_admin", False)  # Store admin status in session
         flash("Login successful!")
-        return redirect(url_for('products.show_products'))
+        # return redirect(url_for('products.show_products'))
+        return redirect(url_for("admin.admin_products") if session["is_admin"] else url_for("home.home"))
     else:
         flash("Invalid credentials.")
         return redirect(url_for('auth.login'))

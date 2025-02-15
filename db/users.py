@@ -47,15 +47,6 @@ def logout():
     return redirect(url_for('products.show_products'))
 
 
-# Send a ping to confirm a successful connection
-# try:
-#     client.admin.command('ping')
-#     print("Pinged your deployment. You successfully connected to MongoDB!")
-# except Exception as e:
-#     print(e)
-
-
-
 users_collection = db['users']
 
 def create_user(username, email, password_hash):

@@ -952,86 +952,119 @@ contact page
   align-items: center;
 }
 
-/* Media Queries for Responsiveness */
+
+/* Hamburger Menu Icon */
+.menu-icon {
+  display: none; /* Hidden by default */
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+/* Responsive Navigation and General Media Queries */
 @media (max-width: 768px) {
-  .homefirstg {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
-  .nav-links {
-      flex-direction: column;
-      align-items: center;
-  }
-
-  .nav-links li {
-      margin-right: 0;
-      margin-bottom: 10px;
-  }
-
-  .container {
-      flex-direction: column;
-      align-items: center;
+  /* Hamburger Menu and Navigation */
+  .menu-icon {
+    display: block; /* Show hamburger icon on small screens */
   }
 
   .main-nav {
-      width: 100%;
-      text-align: center;
+    display: none; /* Hide navigation by default on small screens */
+    width: 100%;
+    text-align: center;
+    background: #fff;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links li {
+    margin: 10px 0;
+  }
+
+  .dropdown-menu {
+    position: static;
+    display: none;
+    background: #f9f9f9;
+    box-shadow: none;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  .main-nav.active {
+    display: block; /* Show navigation when active */
+  }
+
+  /* General Layout Adjustments */
+  .homefirstg {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
   }
 
   .utility-icons {
-      margin-top: 10px;
+    margin-top: 10px;
   }
 
   .col-2, .col-3, .col-4 {
-      flex-basis: 100%;
-      min-width: 100%;
+    flex-basis: 100%;
+    min-width: 100%;
   }
 
   .projects-container, .about-container, .contact-container {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
 
   .service-card {
-      flex: 1 1 100%;
+    flex: 1 1 100%;
   }
 }
 
 @media (max-width: 480px) {
+  /* Further Adjustments for Smaller Screens */
   .homefirstg {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
 
   .item img {
-      width: 100%;
+    width: 100%;
   }
 
   .search-form {
-      flex-direction: column;
+    flex-direction: column;
   }
 
   .search-form input {
-      border-radius: 4px;
-      margin-bottom: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
   }
 
   .search-form button {
-      border-radius: 4px;
+    border-radius: 4px;
   }
 
   .logo img {
-      height: 40px;
+    height: 40px;
   }
 
   .utility-icons a {
-      margin-left: 10px;
+    margin-left: 10px;
   }
 
   .cart-count {
-      top: -8px;
-      left: -3px;
-  }
-
-  .service-card {
-      flex: 1 1 100%;
+    top: -8px;
+    left: -3px;
   }
 }

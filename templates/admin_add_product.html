@@ -1,83 +1,85 @@
 {% extends 'layout.html' %} {% block title %} Add Product {% endblock %} {%
 block content %}
-<h2>Add New Product</h2>
-<form
-  method="post"
-  action="{{ url_for('admin.add_product') }}"
-  enctype="multipart/form-data"
->
-  <label>Name:</label>
-  <input type="text" name="name" required />
+<div class="small-container">
+  <h2 class="title">Add New Product</h2>
+  <form
+    method="post"
+    action="{{ url_for('admin.add_product') }}"
+    enctype="multipart/form-data"
+  >
+    <label>Name:</label>
+    <input type="text" name="name" required />
 
-  <label>Price:</label>
-  <input type="number" step="0.01" name="price" required />
+    <label>Price:</label>
+    <input type="number" step="0.01" name="price" required />
 
-  <label>Description:</label>
-  <textarea name="description" required></textarea>
+    <label>Description:</label>
+    <textarea name="description" required></textarea>
 
-  <label>Image:</label>
-  <input type="file" name="image" accept="image/*" />
+    <label>Image:</label>
+    <input type="file" name="image" accept="image/*" />
 
-  <label>Category:</label>
-  <select id="category-select" name="category" required>
-    <option value="" disabled selected>Select a category</option>
-    <optgroup label="Animals">
-      <option value="mammals">Mammals</option>
-      <option value="birds">Birds</option>
-      <option value="reptiles">Reptiles</option>
-      <option value="fish">Fish</option>
-      <option value="crustaceans">Crustaceans</option>
-    </optgroup>
-    <optgroup label="Crops">
-      <option value="food_crops">Food Crops</option>
-      <option value="cash_crops">Cash Crops</option>
-    </optgroup>
-  </select>
-
-  <!-- Gender Field (Hidden by Default) -->
-  <div id="gender-field" style="display: none">
-    <label>Gender:</label>
-    <select name="gender">
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
+    <label>Category:</label>
+    <select id="category-select" name="category" required>
+      <option value="" disabled selected>Select a category</option>
+      <optgroup label="Animals">
+        <option value="mammals">Mammals</option>
+        <option value="birds">Birds</option>
+        <option value="reptiles">Reptiles</option>
+        <option value="fish">Fish</option>
+        <option value="crustaceans">Crustaceans</option>
+      </optgroup>
+      <optgroup label="Crops">
+        <option value="food_crops">Food Crops</option>
+        <option value="cash_crops">Cash Crops</option>
+      </optgroup>
     </select>
-  </div>
 
-  <!-- Color Field (Hidden by Default) -->
-  <div id="color-field" style="display: none">
-    <label>Color:</label>
-    <select name="color">
-      <option value="Black">Black</option>
-      <option value="White">White</option>
-      <option value="Brown">Brown</option>
-    </select>
-  </div>
+    <!-- Gender Field (Hidden by Default) -->
+    <div id="gender-field" style="display: none">
+      <label>Gender:</label>
+      <select name="gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
 
-  <button type="submit" class="btn btn-success">Add Product</button>
-</form>
+    <!-- Color Field (Hidden by Default) -->
+    <div id="color-field" style="display: none">
+      <label>Color:</label>
+      <select name="color">
+        <option value="Black">Black</option>
+        <option value="White">White</option>
+        <option value="Brown">Brown</option>
+      </select>
+    </div>
 
-<script>
-  // Get references to the category select and the gender/color fields
-  const categorySelect = document.getElementById("category-select");
-  const genderField = document.getElementById("gender-field");
-  const colorField = document.getElementById("color-field");
+    <button type="submit" class="btn btn-success">Add Product</button>
+  </form>
 
-  // Add an event listener to the category select
-  categorySelect.addEventListener("change", function () {
-    const selectedCategory = this.value;
+  <script>
+    // Get references to the category select and the gender/color fields
+    const categorySelect = document.getElementById("category-select");
+    const genderField = document.getElementById("gender-field");
+    const colorField = document.getElementById("color-field");
 
-    // Show gender and color fields only for mammals, birds, and reptiles
-    if (
-      selectedCategory === "mammals" ||
-      selectedCategory === "birds" ||
-      selectedCategory === "reptiles"
-    ) {
-      genderField.style.display = "block";
-      colorField.style.display = "block";
-    } else {
-      genderField.style.display = "none";
-      colorField.style.display = "none";
-    }
-  });
-</script>
+    // Add an event listener to the category select
+    categorySelect.addEventListener("change", function () {
+      const selectedCategory = this.value;
+
+      // Show gender and color fields only for mammals, birds, and reptiles
+      if (
+        selectedCategory === "mammals" ||
+        selectedCategory === "birds" ||
+        selectedCategory === "reptiles"
+      ) {
+        genderField.style.display = "block";
+        colorField.style.display = "block";
+      } else {
+        genderField.style.display = "none";
+        colorField.style.display = "none";
+      }
+    });
+  </script>
+</div>
 {% endblock %}
